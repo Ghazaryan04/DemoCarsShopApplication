@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+
+<head>
+    <title th:text="#{add.car.page.title}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="#{add.car.heading}"></h1>
+    <form class="contact-form mb-3"
+          enctype="multipart/form-data"
+          th:action="@{/add}"
+          th:object="${addCar}"
+          method="post">
+
+        <div class="form-floating mb-3">
+            <label for="brand" th:text="#{add.car.label.brand}"></label>
+            <input type="text" class="form-control" th:field="*{brand}" id="brand" th:placeholder="#{add.car.placeholder.brand}">
+            <p class="contact-error" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label for="year" th:text="#{add.car.label.year}"></label>
+            <input type="number" class="form-control" th:field="*{year}" id="year" th:placeholder="#{add.car.placeholder.year}">
+            <p class="contact-error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label for="price" th:text="#{add.car.label.price}"></label>
+            <input type="number" class="form-control" th:field="*{price}" id="price" th:placeholder="#{add.car.placeholder.price}">
+            <p class="contact-error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label for="transmission" th:text="#{add.car.label.transmission}"></label>
+            <input type="text" class="form-control" th:field="*{transmission}" id="transmission" th:placeholder="#{add.car.placeholder.transmission}">
+            <p class="contact-error" th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label for="color" th:text="#{add.car.label.color}"></label>
+            <input type="text" class="form-control" th:field="*{color}" id="color" th:placeholder="#{add.car.placeholder.color}">
+            <p class="contact-error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label for="image" th:text="#{add.car.label.image}"></label>
+            <input type="file" class="form-control" name="image" id="image">
+            <p class="contact-error" th:if="${#fields.hasErrors('imagePath')}" th:errors="*{imagePath}"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary contact-submit-btn" th:text="#{add.car.button.submit}"></button>
+
+        <p class="contact-success" th:if="${successMessage != null}" th:text="${successMessage}">Success Message</p>
+    </form>
+</div>
+</body>
+</html>

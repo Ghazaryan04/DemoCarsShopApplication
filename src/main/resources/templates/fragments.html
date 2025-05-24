@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<body>
+<div th:fragment="head">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</div>
+<header th:fragment="header">
+    <nav th:fragment="navbar">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about-us}">About-Us</a>
+        <a th:href="@{/contact-us}">Contact-Us</a>
+        <a th:href="@{/add}">Add Cars</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/profile}">Profile</a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <button type="submit" class="dropdown-item">
+                <i class="fa-solid fa-right-from-bracket"></i> Log Out
+            </button>
+        </form>
+
+        <div class="language-switcher">
+            <a th:href="@{/(lang='en')}" th:text="#{language.en}">English</a>
+            <a th:href="@{/(lang='ka')}" th:text="#{language.ka}">Georgian</a>
+            <a th:href="@{/(lang='ru')}" th:text="#{language.ru}">Russian</a>
+        </div>
+    </nav>
+</header>
+
+<footer th:fragment="footer">
+    <h1>All Rights Not Reserved &copy; 2025</h1>
+</footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title th:text="#{index.page.title}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="#{index.welcome.message}"></h1>
+    <p th:text="#{index.browse.message}"></p>
+
+    <div class="car-list">
+        <div class="car-list-row" th:each="car, iterStat : ${carsList}">
+            <a th:href="@{'/car/' + ${car.id}}" style="text-decoration: none; color: inherit;">
+                <div class="panel">
+                    <h3 class="panel-title"
+                        th:text="${iterStat.index + 1} + '. ' + ${car.brand} + ' (' + ${car.year} + ')'"></h3>
+                    <img class="panel-image img-fluid"
+                         th:src="@{${car.imgUrl}}" alt="Car image">
+                    <div class="panel-body">
+                        <p>💰 <span th:text="#{car.price}"></span>: <span th:text="${car.price} + ' USD'"></span></p>
+                        <p>⚙️ <span th:text="#{car.transmission}"></span>: <span th:text="${car.transmission}"></span></p>
+                        <p>🎨 <span th:text="#{car.color}"></span>: <span th:text="${car.color}"></span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <p th:text="#{index.find.dream.car}"></p>
+</div>
+</body>
+</html>

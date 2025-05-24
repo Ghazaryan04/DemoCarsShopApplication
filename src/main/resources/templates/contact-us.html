@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title th:text="#{contact.us.page.title}"></title>
+    <link rel="stylesheet" th:href="@{/css/contact-us.css}">
+</head>
+<body class="contact-us-body">
+<div layout:fragment="content">
+    <h1 class="contact-us-title" th:text="#{contact.us.title}"></h1>
+    <p class="contact-us-text" th:text="#{contact.us.description}"></p>
+
+    <div class="d-flex gap-3 contact-us-container">
+        <div class="flex-grow-1">
+            <form class="contact-form mb-3" th:action="@{/contact-us}" th:object="${contactUs}" method="post">
+                <div class="form-floating mb-3">
+                    <label for="floatingName" th:text="#{contact.form.label.name}"></label>
+                    <input type="text" class="form-control" th:field="*{name}" id="floatingName" th:placeholder="#{contact.form.placeholder.name}">
+                    <p class="contact-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <label for="floatingInput" th:text="#{contact.form.label.email}"></label>
+                    <input type="email" class="form-control" th:field="*{email}" id="floatingInput" th:placeholder="#{contact.form.placeholder.email}">
+                    <p class="contact-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                </div>
+                <div class="form-floating mb-3">
+                    <label for="floatingTextArea" th:text="#{contact.form.label.message}"></label>
+                    <textarea class="form-control" id="floatingTextArea" th:field="*{message}"
+                              th:placeholder="#{contact.form.placeholder.message}"></textarea>
+                    <p class="contact-error" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></p>
+                </div>
+                <button type="submit" class="btn btn-primary contact-submit-btn" th:text="#{contact.form.button.submit}"></button>
+                <p class="contact-success" th:if="${successMessage != null}" th:text="${successMessage}">Success Message</p>
+            </form>
+
+            <div class="card mb-3 contact-info-card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="#{contact.info.title}"></h5>
+                    <p class="card-text mb-0"><b th:text="#{contact.info.email}"></b>: support@shopease.com</p>
+                    <p class="card-text mb-0"><b th:text="#{contact.info.phone}"></b>: +1 (800) 123-4567</p>
+                    <p class="card-text"><b th:text="#{contact.info.address}"></b>: 123 ShopEase Plaza, New York, NY 10001</p>
+                </div>
+            </div>
+
+            <div class="card contact-hours-card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="#{contact.hours.title}"></h5>
+                    <p class="card-text mb-0" th:text="#{contact.hours.weekday}"></p>
+                    <p class="card-text" th:text="#{contact.hours.weekend}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

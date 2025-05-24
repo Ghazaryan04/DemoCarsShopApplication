@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Add new Car</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="${car.brand + ' (' + car.year + ')'}">Car Details</h1>
+    <img th:src="@{${car.imgUrl}}" alt="Car image" class="img-fluid" style="max-width: 400px;"/>
+    <div class="car-details">
+        <h3>Brand: <span th:text="${car.brand}"></span></h3>
+        <h3>Year: <span th:text="${car.year}"></span></h3>
+        <h3>Color: <span th:text="${car.color}"></span></h3>
+        <h3>Price: <span th:text="${car.price} + ' USD'"></span></h3>
+        <h3>Transmission: <span th:text="${car.transmission}"></span></h3>
+    </div>
+    <a th:href="@{/cars-list}" class="btn">🔙 Back to Listings</a>
+    <section class="col" sec:authorize="isAuthenticated()">
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/review/new}" th:object="${commentForm}" method="post"
+                      class="d-flex flex-column gap-3">
+                    <input type="hidden" th:field="*{cardId}"/>
+<!--                    <div>-->
+<!--                        <label for="starsField" class="form-label">Stars</label>-->
+<!--                        <input th:field="*{stars}" type="range" min="1" max="5" step="1" class="form-range"-->
+<!--                               id="starsField"-->
+<!--                               th:classappend="${#fields.hasErrors('stars')} ? 'is-invalid' : ''"/>-->
+<!--                        <div class="invalid-feedback" th:if="${#fields.hasErrors('stars')}"-->
+<!--                             th:errors="*{stars}">-->
+<!--                            Stars error?-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div>
+                        <label for="textField" class="form-label">Text</label>
+                        <textarea th:field="*{text}" class="form-control" id="textField" rows="3"
+                                  th:classappend="${#fields.hasErrors('text')} ? 'is-invalid' : ''"
+                        ></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('text')}"
+                             th:errors="*{text}">
+                            Text error?
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Write review as <span sec:authentication="name">Bob</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <article th:each="comment : ${car.comments}">
+            <h4 th:text="${comment.author.username}">Comment Author</h4>
+            <h5 th:text="${comment.createdDate}">Comment Date</h5>
+            <p th:text="${comment.content}">Comment text</p>
+        </article>
+    </section>
+</div>
+</body>
+</html>
+
+
+
