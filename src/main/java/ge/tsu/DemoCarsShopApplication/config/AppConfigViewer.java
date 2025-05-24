@@ -1,4 +1,4 @@
-//package ge.tsu.DemoCarsShopApplication.config; // შეცვალეთ თქვენი პაკეტის სახელითddddd
+//package ge.tsu.DemoCarsShopApplication.config; // შეცვალეთ თქვენი პაკეტის სახელითdddddaa
 //
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.boot.CommandLineRunner;
